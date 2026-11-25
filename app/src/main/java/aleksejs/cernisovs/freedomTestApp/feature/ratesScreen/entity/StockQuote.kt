@@ -1,4 +1,4 @@
-package aleksejs.cernisovs.freedomtestapp.feature.ratesScreen.entity
+package aleksejs.cernisovs.freedomTestApp.feature.ratesScreen.entity
 
 data class StockQuote(
     val ticker: String,

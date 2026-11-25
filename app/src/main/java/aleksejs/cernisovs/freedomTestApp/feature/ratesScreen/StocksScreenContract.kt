@@ -1,6 +1,6 @@
-package aleksejs.cernisovs.freedomtestapp.feature.ratesScreen
+package aleksejs.cernisovs.freedomTestApp.feature.ratesScreen
 
-import aleksejs.cernisovs.freedomtestapp.feature.ratesScreen.entity.StockQuote
+import aleksejs.cernisovs.freedomTestApp.feature.ratesScreen.entity.StockQuote
 
 data class StocksScreenViewState(
     val quotes: List<StockQuote> = emptyList(),

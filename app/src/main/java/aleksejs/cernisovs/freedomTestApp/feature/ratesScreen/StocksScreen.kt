@@ -1,11 +1,11 @@
-package aleksejs.cernisovs.freedomtestapp.feature.ratesScreen
+package aleksejs.cernisovs.freedomTestApp.feature.ratesScreen
 
-import aleksejs.cernisovs.freedomtestapp.R
-import aleksejs.cernisovs.freedomtestapp.feature.ratesScreen.entity.StockQuote
-import aleksejs.cernisovs.freedomtestapp.feature.shared.ui.StockListItem
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomColor
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomDimension
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomFont
+import aleksejs.cernisovs.freedomTestApp.R
+import aleksejs.cernisovs.freedomTestApp.feature.ratesScreen.entity.StockQuote
+import aleksejs.cernisovs.freedomTestApp.feature.shared.ui.StockListItem
+import aleksejs.cernisovs.freedomTestApp.ui.theme.FreedomColor
+import aleksejs.cernisovs.freedomTestApp.ui.theme.FreedomDimension
+import aleksejs.cernisovs.freedomTestApp.ui.theme.FreedomFont
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -26,15 +26,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun RatesScreen(
     modifier: Modifier = Modifier,
-    viewModel: StocksScreenViewModel = viewModel()
+    viewModel: StocksScreenViewModel = hiltViewModel()
 ) {
     val screenData by viewModel.viewState.collectAsState()
     val lifecycleOwner = LocalLifecycleOwner.current

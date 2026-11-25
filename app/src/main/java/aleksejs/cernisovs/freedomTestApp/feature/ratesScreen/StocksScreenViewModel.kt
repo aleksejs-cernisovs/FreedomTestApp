@@ -1,15 +1,20 @@
-package aleksejs.cernisovs.freedomtestapp.feature.ratesScreen
+package aleksejs.cernisovs.freedomTestApp.feature.ratesScreen
 
-import aleksejs.cernisovs.freedomtestapp.feature.ratesScreen.entity.StockQuote
+import aleksejs.cernisovs.freedomTestApp.feature.ratesScreen.useCase.GetStockQuotesUseCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class StocksScreenViewModel : ViewModel() {
+@HiltViewModel
+class StocksScreenViewModel @Inject constructor(
+    private val getStockQuotesUseCase: GetStockQuotesUseCase
+) : ViewModel() {
 
     private val viewStateFlow = MutableStateFlow(StocksScreenViewState())
     val viewState: StateFlow<StocksScreenViewState> = viewStateFlow
@@ -46,41 +51,14 @@ class StocksScreenViewModel : ViewModel() {
     }
 
     private fun refreshQuotes() {
-        updateState {
-            it.copy(
-                isLoading = false, quotes = listOf(
-                    StockQuote(
-                        ticker = "AAPL.US",
-                        exchange = "FIX",
-                        companyName = "Apple Inc.",
-                        currency = "USD",
-                        lastPrice = 381.35,
-                        priceChange = -3.58,
-                        percentChange = -1.02,
-                        lastTradeDirection = StockQuote.PriceDirection.NONE
-                    ),
-                    StockQuote(
-                        ticker = "TSLA.US",
-                        exchange = "FIX",
-                        companyName = "Tesla Inc.",
-                        currency = "USD",
-                        lastPrice = 347.90,
-                        priceChange = +13.58,
-                        percentChange = +8.16,
-                        lastTradeDirection = StockQuote.PriceDirection.UP
-                    ),
-                    StockQuote(
-                        ticker = "NVIDIA.US",
-                        exchange = "FIX",
-                        companyName = "NVidia Inc.",
-                        currency = "USD",
-                        lastPrice = 12.90,
-                        priceChange = -300.3,
-                        percentChange = -96.5,
-                        lastTradeDirection = StockQuote.PriceDirection.DOWN
-                    )
+        viewModelScope.launch {
+            val quotes = getStockQuotesUseCase()
+            updateState {
+                it.copy(
+                    isLoading = false,
+                    quotes = quotes
                 )
-            )
+            }
         }
     }
 

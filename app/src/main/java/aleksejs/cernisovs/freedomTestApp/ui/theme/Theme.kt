@@ -1,4 +1,4 @@
-package aleksejs.cernisovs.freedomtestapp.ui.theme
+package aleksejs.cernisovs.freedomTestApp.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

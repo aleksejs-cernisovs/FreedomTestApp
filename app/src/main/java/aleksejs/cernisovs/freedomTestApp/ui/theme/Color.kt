@@ -1,4 +1,4 @@
-package aleksejs.cernisovs.freedomtestapp.ui.theme
+package aleksejs.cernisovs.freedomTestApp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

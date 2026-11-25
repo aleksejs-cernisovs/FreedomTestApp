@@ -1,9 +1,9 @@
-package aleksejs.cernisovs.freedomtestapp.feature.shared.ui
+package aleksejs.cernisovs.freedomTestApp.feature.shared.ui
 
-import aleksejs.cernisovs.freedomtestapp.feature.ratesScreen.entity.StockQuote
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomColor
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomDimension
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomFont
+import aleksejs.cernisovs.freedomTestApp.feature.ratesScreen.entity.StockQuote
+import aleksejs.cernisovs.freedomTestApp.ui.theme.FreedomColor
+import aleksejs.cernisovs.freedomTestApp.ui.theme.FreedomDimension
+import aleksejs.cernisovs.freedomTestApp.ui.theme.FreedomFont
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
