@@ -3,6 +3,7 @@ package aleksejs.cernisovs.freedomTestApp.feature.ratesScreen
 import aleksejs.cernisovs.freedomTestApp.R
 import aleksejs.cernisovs.freedomTestApp.feature.ratesScreen.entity.StockQuote
 import aleksejs.cernisovs.freedomTestApp.feature.shared.ui.StockListItem
+import aleksejs.cernisovs.freedomTestApp.feature.shared.ui.annotation.PreviewDifferentDeviceSizes
 import aleksejs.cernisovs.freedomTestApp.ui.theme.FreedomColor
 import aleksejs.cernisovs.freedomTestApp.ui.theme.FreedomDimension
 import aleksejs.cernisovs.freedomTestApp.ui.theme.FreedomFont
@@ -27,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -136,8 +136,8 @@ private fun StocksScreenContent(
     }
 }
 
+@PreviewDifferentDeviceSizes
 @Composable
-@Preview
 private fun StocksScreenPreview() {
     StocksScreenContent(
         StocksScreenViewState(
@@ -175,6 +175,16 @@ private val dummyQuoteList = listOf(
         currency = "USD",
         lastPrice = 12.90,
         priceChange = -300.3,
+        percentChange = -96.5,
+        lastTradeDirection = StockQuote.PriceDirection.DOWN
+    ),
+    StockQuote(
+        ticker = "LongName.Test",
+        exchange = "FIX",
+        companyName = "LongName.Test.LongName.Test.LongName.TestLongName.Test.LongName.Test.LongName.Test",
+        currency = "USD",
+        lastPrice = 12.90,
+        priceChange = -9999999999.3,
         percentChange = -96.5,
         lastTradeDirection = StockQuote.PriceDirection.DOWN
     )

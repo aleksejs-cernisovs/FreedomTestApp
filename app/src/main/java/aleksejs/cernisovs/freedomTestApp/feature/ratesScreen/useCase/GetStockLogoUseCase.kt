@@ -13,6 +13,7 @@ class GetStockLogoUseCase @Inject constructor(
     suspend operator fun invoke(ticker: String): Painter? {
         val bytes = stocksRepository.getStockLogo(ticker) ?: return null
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size) ?: return null
+
         return BitmapPainter(bitmap.asImageBitmap())
     }
 }

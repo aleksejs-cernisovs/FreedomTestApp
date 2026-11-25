@@ -55,6 +55,7 @@ class StocksScreenViewModel @Inject constructor(
 
     private fun startCollecting() {
         if (quotesJob?.isActive == true) return
+
         updateState {
             it.copy(
                 isError = false,

@@ -66,8 +66,7 @@ fun StockListItem(
 
     val animatedBackgroundColor by animateColorAsState(
         targetValue = targetBackgroundColor,
-        animationSpec = tween(durationMillis = HIGHLIGHT_ANIMATION_DURATION_MILLIS),
-        label = "priceBackgroundColor"
+        animationSpec = tween(durationMillis = HIGHLIGHT_ANIMATION_DURATION_MILLIS)
     )
 
     val targetTextColor = if (activeDirection == StockQuote.PriceDirection.NONE) {
@@ -78,8 +77,7 @@ fun StockListItem(
 
     val animatedTextColor by animateColorAsState(
         targetValue = targetTextColor,
-        animationSpec = tween(durationMillis = HIGHLIGHT_ANIMATION_DURATION_MILLIS),
-        label = "priceTextColor"
+        animationSpec = tween(durationMillis = HIGHLIGHT_ANIMATION_DURATION_MILLIS)
     )
 
     Column(
