@@ -128,6 +128,7 @@ private fun StocksScreenContent(
             itemsIndexed(items = screenData.quotes) { index, quoteData ->
                 StockListItem(
                     stock = quoteData,
+                    logo = screenData.logos[quoteData.ticker],
                     shouldShowDivider = index != (screenData.quotes.size - 1)
                 )
             }

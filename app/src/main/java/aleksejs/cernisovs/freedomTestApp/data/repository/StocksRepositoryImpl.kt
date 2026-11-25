@@ -2,9 +2,11 @@ package aleksejs.cernisovs.freedomTestApp.data.repository
 
 import aleksejs.cernisovs.freedomTestApp.data.entity.StockQuoteDataEntity
 import aleksejs.cernisovs.freedomTestApp.data.exception.ConnectionFailedException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -12,10 +14,12 @@ import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 
 private const val TRADENET_SERVER_URL = "wss://wss.tradernet.com"
+private const val TRADENET_LOGO_BASE_URL = "https://tradernet.com/logos/get-logo-by-ticker?ticker="
 
 @Singleton
 class StocksRepositoryImpl @Inject constructor(
@@ -110,6 +114,23 @@ class StocksRepositoryImpl @Inject constructor(
                 webSocket.close(1000, "Flow cancelled")
             }
         }
+
+    override suspend fun getStockLogo(ticker: String): ByteArray? = withContext(Dispatchers.IO) {
+        try {
+            val lowerTicker = ticker.lowercase(Locale.US)
+            val url = "$TRADENET_LOGO_BASE_URL$lowerTicker"
+            val request = Request.Builder().url(url).build()
+            client.newCall(request).execute().use { response ->
+                if (response.isSuccessful) {
+                    response.body?.bytes()
+                } else {
+                    null
+                }
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
 
     private fun JSONObject.getDoubleOrNull(key: String): Double? {
         if (!has(key) || isNull(key)) return null
