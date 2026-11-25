@@ -98,15 +98,13 @@ fun StockListItem(
         ) {
 
             val iconSize = 26.dp
-            if (logo != null) {
+            logo?.let {
                 Image(
                     painter = logo,
                     contentDescription = null,
                     modifier = Modifier.size(iconSize),
                     contentScale = ContentScale.Fit
                 )
-            } else {
-                Spacer(modifier = Modifier.width(iconSize))
             }
 
             Spacer(modifier = Modifier.width(FreedomDimension.PaddingSmall))
