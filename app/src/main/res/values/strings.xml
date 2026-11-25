@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FreedomTestApp</string>
+    <string name="recommended_rates">Recommended Rates</string>
 </resources>
