@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">FreedomTestApp</string>
     <string name="recommended_rates">Recommended Rates</string>
+    <string name="connection_error_title">Connection Failed</string>
+    <string name="connection_error_message">Unable to connect to quotes server. Please check your connection and try again.</string>
+    <string name="retry">Try Again</string>
 </resources>

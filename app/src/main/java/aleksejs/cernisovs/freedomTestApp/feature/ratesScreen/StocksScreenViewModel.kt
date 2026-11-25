@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,24 +35,45 @@ class StocksScreenViewModel @Inject constructor(
             }
 
             StocksScreenEvent.AppResumedEvent -> {
-                if (quotesJob == null) {
+                if (quotesJob == null && !viewState.value.isError) {
                     startCollecting()
                 }
+            }
+
+            StocksScreenEvent.RetryButtonClickedEvent -> {
+                stopCollecting()
+                startCollecting()
             }
         }
     }
 
     private fun startCollecting() {
         if (quotesJob?.isActive == true) return
+        updateState {
+            it.copy(
+                isError = false,
+                isLoading = it.quotes.isEmpty()
+            )
+        }
         quotesJob = viewModelScope.launch {
-            getStockQuotesUseCase().collect { quotes ->
-                updateState {
-                    it.copy(
-                        isLoading = false,
-                        quotes = quotes
-                    )
+            getStockQuotesUseCase()
+                .catch {
+                    updateState {
+                        it.copy(
+                            isLoading = false,
+                            isError = true
+                        )
+                    }
                 }
-            }
+                .collect { quotes ->
+                    updateState {
+                        it.copy(
+                            isLoading = false,
+                            isError = false,
+                            quotes = quotes
+                        )
+                    }
+                }
         }
     }
 
