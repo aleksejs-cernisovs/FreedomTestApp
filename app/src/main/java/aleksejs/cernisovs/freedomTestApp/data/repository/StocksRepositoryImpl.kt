@@ -95,7 +95,10 @@ class StocksRepositoryImpl @Inject constructor(
                 }
 
                 override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-                    close(ConnectionFailedException())
+                    try {
+                        close(ConnectionFailedException())
+                    } catch (_: Throwable) {
+                    }
                 }
 
                 override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {}
