@@ -8,7 +8,6 @@ data class StocksScreenViewState(
 )
 
 sealed class StocksScreenEvent {
-    object PullToRefreshTriggeredEvent : StocksScreenEvent()
     object AppPausedEvent : StocksScreenEvent()
     object AppResumedEvent : StocksScreenEvent()
 }

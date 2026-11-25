@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,62 +18,46 @@ class StocksScreenViewModel @Inject constructor(
     private val viewStateFlow = MutableStateFlow(StocksScreenViewState())
     val viewState: StateFlow<StocksScreenViewState> = viewStateFlow
 
-    private var pollingJob: Job? = null
+    private var quotesJob: Job? = null
 
     init {
         updateState {
             it.copy(isLoading = true)
         }
-        viewModelScope.launch {
-            delay(3_000)
-            refreshQuotes()
-            startPolling()
-        }
+        startCollecting()
     }
 
     fun onEvent(event: StocksScreenEvent) {
         when (event) {
             StocksScreenEvent.AppPausedEvent -> {
-                stopPolling()
+                stopCollecting()
             }
 
             StocksScreenEvent.AppResumedEvent -> {
-                if (pollingJob == null) {
-                    startPolling()
+                if (quotesJob == null) {
+                    startCollecting()
                 }
             }
+        }
+    }
 
-            StocksScreenEvent.PullToRefreshTriggeredEvent -> {
-                refreshQuotes()
+    private fun startCollecting() {
+        if (quotesJob?.isActive == true) return
+        quotesJob = viewModelScope.launch {
+            getStockQuotesUseCase().collect { quotes ->
+                updateState {
+                    it.copy(
+                        isLoading = false,
+                        quotes = quotes
+                    )
+                }
             }
         }
     }
 
-    private fun refreshQuotes() {
-        viewModelScope.launch {
-            val quotes = getStockQuotesUseCase()
-            updateState {
-                it.copy(
-                    isLoading = false,
-                    quotes = quotes
-                )
-            }
-        }
-    }
-
-    private fun startPolling() {
-        if (pollingJob?.isActive == true) return
-        pollingJob = viewModelScope.launch {
-            while (true) {
-                delay(3_000)
-                refreshQuotes()
-            }
-        }
-    }
-
-    private fun stopPolling() {
-        pollingJob?.cancel()
-        pollingJob = null
+    private fun stopCollecting() {
+        quotesJob?.cancel()
+        quotesJob = null
     }
 
     private inline fun StocksScreenViewModel.updateState(
