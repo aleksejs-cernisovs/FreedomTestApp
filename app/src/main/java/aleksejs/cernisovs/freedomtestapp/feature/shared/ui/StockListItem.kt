@@ -1,6 +1,6 @@
 package aleksejs.cernisovs.freedomtestapp.feature.shared.ui
 
-import aleksejs.cernisovs.freedomtestapp.feature.ratesScreen.StockQuote
+import aleksejs.cernisovs.freedomtestapp.feature.ratesScreen.entity.StockQuote
 import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomColor
 import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomDimension
 import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomFont
@@ -43,7 +43,10 @@ fun StockListItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = FreedomDimension.PaddingMedium, vertical = FreedomDimension.PaddingSmall),
+                .padding(
+                    horizontal = FreedomDimension.PaddingMedium,
+                    vertical = FreedomDimension.PaddingSmall
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -100,7 +103,10 @@ fun StockListItem(
                             },
                             shape = RoundedCornerShape(FreedomDimension.CornerRadiusDefault)
                         )
-                        .padding(horizontal = FreedomDimension.PaddingXXSmall, vertical = FreedomDimension.PaddingXXXSmall)
+                        .padding(
+                            horizontal = FreedomDimension.PaddingXXSmall,
+                            vertical = FreedomDimension.PaddingXXXSmall
+                        )
                 )
 
                 Text(
