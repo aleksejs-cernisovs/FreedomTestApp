@@ -2,15 +2,13 @@ package aleksejs.cernisovs.freedomtestapp.feature.ratesScreen
 
 import aleksejs.cernisovs.freedomtestapp.R
 import aleksejs.cernisovs.freedomtestapp.feature.shared.ui.StockListItem
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomTextPrimary
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomWhite
-import aleksejs.cernisovs.freedomtestapp.ui.theme.TextPrimary
-import aleksejs.cernisovs.freedomtestapp.ui.theme.paddingXLarge
+import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomColor
+import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomDimension
+import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomFont
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -39,25 +37,25 @@ private fun QuotesScreenContent(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .background(FreedomWhite)
+            .background(FreedomColor.White)
     ) {
 
         item {
-            Spacer(Modifier.size(paddingXLarge))
+            Spacer(Modifier.size(FreedomDimension.PaddingXLarge))
         }
 
         item {
             Text(
                 text = stringResource(R.string.recommended_rates),
-                style = TextPrimary,
-                color = FreedomTextPrimary,
+                style = FreedomFont.TextPrimary,
+                color = FreedomColor.TextPrimary,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
         }
 
         item {
-            Spacer(Modifier.size(paddingXLarge))
+            Spacer(Modifier.size(FreedomDimension.PaddingXLarge))
         }
 
         itemsIndexed(items = screenData.quotes) { index, quoteData ->

@@ -1,26 +1,9 @@
 package aleksejs.cernisovs.freedomtestapp.feature.shared.ui
 
 import aleksejs.cernisovs.freedomtestapp.feature.ratesScreen.StockQuote
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomDivider
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomGray
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomGreen
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomPriceDownBg
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomPriceUpBg
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomRed
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomTextGray
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomTextPrimary
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomTextSecondary
-import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomWhite
-import aleksejs.cernisovs.freedomtestapp.ui.theme.TextPrimary
-import aleksejs.cernisovs.freedomtestapp.ui.theme.TextSecondary
-import aleksejs.cernisovs.freedomtestapp.ui.theme.TextSmall
-import aleksejs.cernisovs.freedomtestapp.ui.theme.cornerRadiusDefault
-import aleksejs.cernisovs.freedomtestapp.ui.theme.paddingMedium
-import aleksejs.cernisovs.freedomtestapp.ui.theme.paddingSmall
-import aleksejs.cernisovs.freedomtestapp.ui.theme.paddingXSmall
-import aleksejs.cernisovs.freedomtestapp.ui.theme.paddingXXSmall
-import aleksejs.cernisovs.freedomtestapp.ui.theme.paddingXXXSmall
-import aleksejs.cernisovs.freedomtestapp.ui.theme.stockPrice
+import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomColor
+import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomDimension
+import aleksejs.cernisovs.freedomtestapp.ui.theme.FreedomFont
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -60,7 +43,7 @@ fun StockListItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = paddingMedium, vertical = paddingSmall),
+                .padding(horizontal = FreedomDimension.PaddingMedium, vertical = FreedomDimension.PaddingSmall),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -76,48 +59,48 @@ fun StockListItem(
                 Spacer(modifier = Modifier.width(iconSize))
             }
 
-            Spacer(modifier = Modifier.width(paddingSmall))
+            Spacer(modifier = Modifier.width(FreedomDimension.PaddingSmall))
 
             Column(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
                     text = stock.ticker,
-                    style = TextPrimary,
-                    color = FreedomTextPrimary
+                    style = FreedomFont.TextPrimary,
+                    color = FreedomColor.TextPrimary
                 )
 
-                Spacer(Modifier.size(paddingXXXSmall))
+                Spacer(Modifier.size(FreedomDimension.PaddingXXXSmall))
 
                 Text(
                     text = "${stock.exchange} | ${stock.companyName}",
-                    style = TextSecondary,
-                    color = FreedomTextGray,
+                    style = FreedomFont.TextSecondary,
+                    color = FreedomColor.TextGray,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
             }
 
-            Spacer(modifier = Modifier.width(paddingXSmall))
+            Spacer(modifier = Modifier.width(FreedomDimension.PaddingXSmall))
 
             Column(
                 horizontalAlignment = Alignment.End,
-                verticalArrangement = Arrangement.spacedBy(paddingXXXSmall)
+                verticalArrangement = Arrangement.spacedBy(FreedomDimension.PaddingXXXSmall)
             ) {
                 Text(
                     text = stock.lastPrice.formatPrice(),
-                    style = stockPrice,
-                    color = if (stock.lastTradeDirection == StockQuote.PriceDirection.NONE) FreedomTextSecondary else FreedomWhite,
+                    style = FreedomFont.StockPrice,
+                    color = if (stock.lastTradeDirection == StockQuote.PriceDirection.NONE) FreedomColor.TextSecondary else FreedomColor.White,
                     modifier = Modifier
                         .background(
                             color = when (stock.lastTradeDirection) {
-                                StockQuote.PriceDirection.UP -> FreedomPriceUpBg
-                                StockQuote.PriceDirection.DOWN -> FreedomPriceDownBg
+                                StockQuote.PriceDirection.UP -> FreedomColor.PriceUpBg
+                                StockQuote.PriceDirection.DOWN -> FreedomColor.PriceDownBg
                                 StockQuote.PriceDirection.NONE -> Color.Transparent
                             },
-                            shape = RoundedCornerShape(cornerRadiusDefault)
+                            shape = RoundedCornerShape(FreedomDimension.CornerRadiusDefault)
                         )
-                        .padding(horizontal = paddingXXSmall, vertical = paddingXXXSmall)
+                        .padding(horizontal = FreedomDimension.PaddingXXSmall, vertical = FreedomDimension.PaddingXXXSmall)
                 )
 
                 Text(
@@ -127,11 +110,11 @@ fun StockListItem(
                         append(stock.percentChange.formatSigned())
                         append("%")
                     },
-                    style = TextSmall,
+                    style = FreedomFont.TextSmall,
                     color = when {
-                        stock.priceChange > 0 -> FreedomGreen
-                        stock.priceChange < 0 -> FreedomRed
-                        else -> FreedomGray
+                        stock.priceChange > 0 -> FreedomColor.Green
+                        stock.priceChange < 0 -> FreedomColor.Red
+                        else -> FreedomColor.Gray
                     }
                 )
             }
@@ -140,7 +123,7 @@ fun StockListItem(
         if (shouldShowDivider) {
             HorizontalDivider(
                 thickness = 1.dp,
-                color = FreedomDivider
+                color = FreedomColor.Divider
             )
         }
     }
